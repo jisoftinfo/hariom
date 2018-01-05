@@ -200,7 +200,7 @@
 
     End Sub
 
-    Sub ViewForm()
+    Public Sub ViewForm()
         If txtSearchBox.Text.Trim() = "" Then
             txtSearchBox.Focus()
         Else
@@ -209,7 +209,7 @@
             If str <> "" Then MsgDialog.ShowMsgDlg(str, Me.Text, "I") Else txtSearchBox.Text = ""
             dgvDebitDetails.DataSource = db.DebitNoteDetailsParty.Grid("MWDate  ,Invoice,(select MillName from Mill where MillCode=DebitNoteDetailsParty.PartyName) as MillName,(select BillingName from MillWorking where MWCode=DebitNoteDetailsParty.MWCode) as BillingName,NoOfBags,TotalKg,Amount,[Count],MWCode", "DNCode='" + txtCode.Text + "'")
             ErrorProvider1.Clear()
-            dgvDebitDetails.Columns("MWDate").DefaultCellStyle.Format = "dd/MM/yyyy"
+            If Not dgvDebitDetails.DataSource Is Nothing Then dgvDebitDetails.Columns("MWDate").DefaultCellStyle.Format = "dd/MM/yyyy"
         End If
     End Sub
     Sub SaveAllRecord()

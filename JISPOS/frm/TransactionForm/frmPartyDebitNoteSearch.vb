@@ -218,8 +218,10 @@ Public Class frmPartyDebitNoteSearch
                 End If
             Next
 
-            For i = 0 To dgv.RowCount - 2
+            For i = 0 To dgv.RowCount - 1
                 CCol = 1
+                Dim bc As Color = dgv.Rows(i).DefaultCellStyle.BackColor
+
                 For j = 0 To dgv.ColumnCount - 1
                     If dgv.Columns(j).Visible = True Then
                         If IsDate(dgv(j, i).Value) Then
@@ -228,7 +230,7 @@ Public Class frmPartyDebitNoteSearch
                             xlWorkSheet.Cells(i + 2, CCol).value = dgv(j, i).Value.ToString()
                         End If
 
-                        xlWorkSheet.Cells(i + 2, CCol).Interior.Color = RGB(dgv.Rows(i).DefaultCellStyle.BackColor.R, dgv.Rows(i).DefaultCellStyle.BackColor.G, dgv.Rows(i).DefaultCellStyle.BackColor.B)
+                        If bc.R <> 0 Or bc.G <> 0 Or bc.B Then xlWorkSheet.Cells(i + 2, CCol).Interior.Color = RGB(bc.R, bc.G, bc.B)
 
                         CCol = CCol + 1
                     End If
